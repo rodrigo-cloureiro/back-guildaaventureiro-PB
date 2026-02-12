@@ -9,4 +9,9 @@ import java.util.List;
 @Repository
 public class AventureiroRepositoryFake {
     private final List<Aventureiro> banco = new ArrayList<>();
+
+    public Aventureiro save(Aventureiro aventureiro) {
+        banco.add(aventureiro);
+        return aventureiro;
+    }
 }
