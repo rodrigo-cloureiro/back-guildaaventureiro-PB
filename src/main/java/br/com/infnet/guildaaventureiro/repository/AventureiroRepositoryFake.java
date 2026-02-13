@@ -1,13 +1,12 @@
 package br.com.infnet.guildaaventureiro.repository;
 
+import br.com.infnet.guildaaventureiro.dto.AventureiroFiltroRequest;
 import br.com.infnet.guildaaventureiro.enums.Classe;
 import br.com.infnet.guildaaventureiro.model.Aventureiro;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Stream;
 
 @Repository
 public class AventureiroRepositoryFake {
@@ -22,6 +21,24 @@ public class AventureiroRepositoryFake {
         return List.copyOf(banco);
     }
 
+    public List<Aventureiro> findWithFilter(AventureiroFiltroRequest filtro) {
+        return findWithFilter(filtro, null);
+    }
+
+    public List<Aventureiro> findWithFilter(
+            AventureiroFiltroRequest filtro,
+            Comparator<Aventureiro> comparator
+    ) {
+        Stream<Aventureiro> stream = List.copyOf(banco).stream()
+                .filter(a -> possuiFiltro(a.getClasse(), filtro.classe()))
+                .filter(a -> possuiFiltro(a.getAtivo(), filtro.ativo()))
+                .filter(a -> possuiFiltroNivelMinimo(a, filtro));
+
+        if (comparator != null)
+            stream = stream.sorted(comparator);
+
+        return stream.toList();
+    }
 
     public Aventureiro save(Aventureiro aventureiro) {
         aventureiro.setId(++sequence);
@@ -52,5 +69,13 @@ public class AventureiroRepositoryFake {
             aventureiro.setId(++sequence);
             banco.add(aventureiro);
         }
+    }
+
+    private <T> boolean possuiFiltro(T objeto, T filtro) {
+        return filtro == null || objeto.equals(filtro);
+    }
+
+    private boolean possuiFiltroNivelMinimo(Aventureiro aventureiro, AventureiroFiltroRequest filtro) {
+        return filtro.nivelMinimo() == null || aventureiro.getNivel() >= filtro.nivelMinimo();
     }
 }
