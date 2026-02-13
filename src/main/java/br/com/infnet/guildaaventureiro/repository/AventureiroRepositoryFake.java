@@ -61,6 +61,12 @@ public class AventureiroRepositoryFake {
         return Paginator.paginate(filtrado, page, size);
     }
 
+    public Optional<Aventureiro> findById(Long id) {
+        return banco.stream()
+                .filter(a -> a.getId().equals(id))
+                .findFirst();
+    }
+
     public Aventureiro save(Aventureiro aventureiro) {
         aventureiro.setId(++sequence);
         banco.add(aventureiro);
