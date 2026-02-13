@@ -11,6 +11,7 @@ import java.util.Random;
 
 @Repository
 public class AventureiroRepositoryFake {
+    private Long sequence = 0L;
     private final List<Aventureiro> banco = new ArrayList<>();
 
     public AventureiroRepositoryFake() {
@@ -23,6 +24,7 @@ public class AventureiroRepositoryFake {
 
 
     public Aventureiro save(Aventureiro aventureiro) {
+        aventureiro.setId(++sequence);
         banco.add(aventureiro);
         return aventureiro;
     }
@@ -47,6 +49,7 @@ public class AventureiroRepositoryFake {
                     Classe.valueOf(classe),
                     nivel
             );
+            aventureiro.setId(++sequence);
             banco.add(aventureiro);
         }
     }
