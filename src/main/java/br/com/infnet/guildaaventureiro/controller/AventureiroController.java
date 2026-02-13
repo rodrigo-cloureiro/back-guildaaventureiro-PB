@@ -28,7 +28,7 @@ public class AventureiroController {
     // Listar Aventureiros
     // =====================
     @GetMapping(value = "")
-    public ResponseEntity<PagedResponse<Aventureiro>> listarAventureiros(
+    public ResponseEntity<PagedResponse<AventureiroResponse>> listarAventureiros(
             @Valid AventureiroFiltroRequest filtro,
             @RequestHeader(value = "X-Page", required = false, defaultValue = "0")
             @Min(value = 0, message = "A página não pode ser negativa")
@@ -38,12 +38,21 @@ public class AventureiroController {
             int size
     ) {
         PagedResponse<Aventureiro> paginaFiltrada = aventureiroService.listar(filtro, page, size);
+        PagedResponse<AventureiroResponse> pagedResponse = new PagedResponse<>(
+                paginaFiltrada.page(),
+                paginaFiltrada.size(),
+                paginaFiltrada.total(),
+                paginaFiltrada.totalPages(),
+                paginaFiltrada.content().stream()
+                        .map(aventureiroMapper::toResponse)
+                        .toList()
+        );
         return ResponseEntity.ok()
                 .header("X-Total-Count", String.valueOf(paginaFiltrada.total()))
                 .header("X-Page", String.valueOf(paginaFiltrada.page()))
                 .header("X-Size", String.valueOf(paginaFiltrada.size()))
                 .header("X-Total-Pages", String.valueOf(paginaFiltrada.totalPages()))
-                .body(paginaFiltrada);
+                .body(pagedResponse);
     }
 
     // =====================

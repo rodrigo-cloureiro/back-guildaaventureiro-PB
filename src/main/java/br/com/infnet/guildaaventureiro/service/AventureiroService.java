@@ -19,9 +19,6 @@ public class AventureiroService {
 
     /*
         AINDA FALTA:
-           - A resposta deve conter: aventureiros em formato de resumo, sem informações de companheiro
-            - Atualmente possui companheiro = null
-
            - Verificar se os valores dos headers de paginação estão sendo retornados corretamente
 
            - Verificar:
