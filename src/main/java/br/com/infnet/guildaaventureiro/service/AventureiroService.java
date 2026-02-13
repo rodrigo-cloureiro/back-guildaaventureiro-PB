@@ -2,6 +2,7 @@ package br.com.infnet.guildaaventureiro.service;
 
 import br.com.infnet.guildaaventureiro.dto.AventureiroFiltroRequest;
 import br.com.infnet.guildaaventureiro.dto.PagedResponse;
+import br.com.infnet.guildaaventureiro.exception.EntidadeNaoLocalizadaException;
 import br.com.infnet.guildaaventureiro.model.Aventureiro;
 import br.com.infnet.guildaaventureiro.repository.AventureiroRepositoryFake;
 import jakarta.validation.Valid;
@@ -26,6 +27,11 @@ public class AventureiroService {
                 page,
                 size
         );
+    }
+
+    public Aventureiro buscarPorId(Long id) {
+        return aventureiroRepository.findById(id)
+                .orElseThrow(() -> new EntidadeNaoLocalizadaException("Aventureiro não localizado"));
     }
 
     public Aventureiro criar(Aventureiro aventureiro) {
