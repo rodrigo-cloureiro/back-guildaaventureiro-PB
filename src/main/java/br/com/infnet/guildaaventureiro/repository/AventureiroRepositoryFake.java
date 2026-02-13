@@ -1,8 +1,10 @@
 package br.com.infnet.guildaaventureiro.repository;
 
 import br.com.infnet.guildaaventureiro.dto.AventureiroFiltroRequest;
+import br.com.infnet.guildaaventureiro.dto.PagedResponse;
 import br.com.infnet.guildaaventureiro.enums.Classe;
 import br.com.infnet.guildaaventureiro.model.Aventureiro;
+import br.com.infnet.guildaaventureiro.util.Paginator;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -25,6 +27,15 @@ public class AventureiroRepositoryFake {
         return findWithFilter(filtro, null);
     }
 
+    public PagedResponse<Aventureiro> findWithFilter(
+            AventureiroFiltroRequest filtro,
+            int page,
+            int size
+    ) {
+        List<Aventureiro> filtrado = findWithFilter(filtro);
+        return Paginator.paginate(filtrado, page, size);
+    }
+
     public List<Aventureiro> findWithFilter(
             AventureiroFiltroRequest filtro,
             Comparator<Aventureiro> comparator
@@ -38,6 +49,16 @@ public class AventureiroRepositoryFake {
             stream = stream.sorted(comparator);
 
         return stream.toList();
+    }
+
+    public PagedResponse<Aventureiro> findWithFilter(
+            AventureiroFiltroRequest filtro,
+            Comparator<Aventureiro> comparator,
+            int page,
+            int size
+    ) {
+        List<Aventureiro> filtrado = findWithFilter(filtro, comparator);
+        return Paginator.paginate(filtrado, page, size);
     }
 
     public Aventureiro save(Aventureiro aventureiro) {
