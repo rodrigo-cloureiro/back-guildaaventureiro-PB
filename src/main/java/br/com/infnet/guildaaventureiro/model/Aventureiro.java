@@ -32,4 +32,12 @@ public class Aventureiro {
         this.nivel = nivel;
         this.ativo = true;
     }
+
+    public void encerrarVinculo() {
+        this.ativo = false;
+    }
+
+    public void recrutar() {
+        this.ativo = true;
+    }
 }
