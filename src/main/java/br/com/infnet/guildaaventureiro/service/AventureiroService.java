@@ -34,6 +34,16 @@ public class AventureiroService {
                 .orElseThrow(() -> new EntidadeNaoLocalizadaException("Aventureiro não localizado"));
     }
 
+    public void encerrarVinculo(Long id) {
+        Aventureiro aventureiro = buscarPorId(id);
+        aventureiro.encerrarVinculo();
+    }
+
+    public void recrutarNovamente(Long id) {
+        Aventureiro aventureiro = buscarPorId(id);
+        aventureiro.recrutar();
+    }
+
     public Aventureiro criar(Aventureiro aventureiro) {
         return aventureiroRepository.save(aventureiro);
     }
