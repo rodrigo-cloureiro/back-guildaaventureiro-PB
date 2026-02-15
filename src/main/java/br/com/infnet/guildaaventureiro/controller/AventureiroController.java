@@ -111,7 +111,16 @@ public class AventureiroController {
             @PathVariable Long id,
             @Valid @RequestBody Companheiro companheiro
     ) {
-        Aventureiro aventureiro = aventureiroService.definirCompanheiro(id, companheiro);
+        aventureiroService.definirCompanheiro(id, companheiro);
+        return ResponseEntity.noContent().build();
+    }
+
+    // ==================================
+    // Remover Companheiro do Aventureiro
+    // ==================================
+    @DeleteMapping(value = "/{id}/companheiro")
+    public ResponseEntity<Void> removerCompanheiro(@PathVariable Long id) {
+        aventureiroService.removerCompanheiro(id);
         return ResponseEntity.noContent().build();
     }
 }
