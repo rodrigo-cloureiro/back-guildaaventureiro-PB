@@ -11,8 +11,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 @Repository
-// TODO Adicionar interface para utilizar injeção de dependência
-public class AventureiroRepositoryFake {
+public class AventureiroRepositoryFake implements AventureiroRepository {
     private Long sequence = 0L;
     private final List<Aventureiro> banco = new ArrayList<>();
 
@@ -20,14 +19,17 @@ public class AventureiroRepositoryFake {
         inicializar();
     }
 
+    @Override
     public List<Aventureiro> findAll() {
         return List.copyOf(banco);
     }
 
+    @Override
     public List<Aventureiro> findWithFilter(AventureiroFiltroRequest filtro) {
         return findWithFilter(filtro, null);
     }
 
+    @Override
     public PagedResponse<Aventureiro> findWithFilter(
             AventureiroFiltroRequest filtro,
             int page,
@@ -37,6 +39,7 @@ public class AventureiroRepositoryFake {
         return Paginator.paginate(filtrado, page, size);
     }
 
+    @Override
     public List<Aventureiro> findWithFilter(
             AventureiroFiltroRequest filtro,
             Comparator<Aventureiro> comparator
@@ -52,6 +55,7 @@ public class AventureiroRepositoryFake {
         return stream.toList();
     }
 
+    @Override
     public PagedResponse<Aventureiro> findWithFilter(
             AventureiroFiltroRequest filtro,
             Comparator<Aventureiro> comparator,
@@ -62,12 +66,14 @@ public class AventureiroRepositoryFake {
         return Paginator.paginate(filtrado, page, size);
     }
 
+    @Override
     public Optional<Aventureiro> findById(Long id) {
         return banco.stream()
                 .filter(a -> a.getId().equals(id))
                 .findFirst();
     }
 
+    @Override
     public Aventureiro save(Aventureiro aventureiro) {
         if (aventureiro.getId() == null) {
             aventureiro.setId(++sequence);
