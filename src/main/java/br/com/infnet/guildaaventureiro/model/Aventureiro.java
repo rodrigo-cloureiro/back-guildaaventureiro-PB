@@ -26,11 +26,22 @@ public class Aventureiro {
     private Companheiro companheiro;
 
     public Aventureiro(String nome, Classe classe, int nivel) {
-        this.id = 1L;
         this.nome = nome;
         this.classe = classe;
         this.nivel = nivel;
         this.ativo = true;
+    }
+
+    public void alterarNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void alterarClasse(Classe classe) {
+        this.classe = classe;
+    }
+
+    public void alterarNivel(int nivel) {
+        this.nivel = nivel;
     }
 
     public void encerrarVinculo() {
