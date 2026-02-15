@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.List;
 
 @RestControllerAdvice
+// TODO Implementar tratamentos das excecoes por requisicao com dados invalidos
 public class ApiExceptionHandler {
     @ExceptionHandler(EntidadeNaoLocalizadaException.class)
     public ResponseEntity<ErrorResponse> handleEntidadeNaoLocalizadaException(EntidadeNaoLocalizadaException ex) {
