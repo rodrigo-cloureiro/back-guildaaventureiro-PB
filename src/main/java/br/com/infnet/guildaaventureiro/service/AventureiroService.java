@@ -61,10 +61,16 @@ public class AventureiroService {
         aventureiro.recrutar();
     }
 
-    public Aventureiro definirCompanheiro(Long id, Companheiro companheiro) {
+    public void definirCompanheiro(Long id, Companheiro companheiro) {
         Aventureiro aventureiro = buscarPorId(id);
         aventureiro.definirCompanheiro(companheiro);
-        return aventureiroRepository.save(aventureiro);
+        aventureiroRepository.save(aventureiro);
+    }
+
+    public void removerCompanheiro(Long id) {
+        Aventureiro aventureiro = buscarPorId(id);
+        aventureiro.removerCompanheiro();
+        aventureiroRepository.save(aventureiro);
     }
 
     public Aventureiro criar(Aventureiro aventureiro) {
