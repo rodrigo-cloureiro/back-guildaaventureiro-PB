@@ -55,4 +55,8 @@ public class Aventureiro {
     public void definirCompanheiro(Companheiro companheiro) {
         this.companheiro = companheiro;
     }
+
+    public void removerCompanheiro() {
+        this.companheiro = null;
+    }
 }
