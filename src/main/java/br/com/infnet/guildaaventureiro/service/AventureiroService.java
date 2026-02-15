@@ -6,7 +6,7 @@ import br.com.infnet.guildaaventureiro.dto.PagedResponse;
 import br.com.infnet.guildaaventureiro.exception.EntidadeNaoLocalizadaException;
 import br.com.infnet.guildaaventureiro.model.Aventureiro;
 import br.com.infnet.guildaaventureiro.model.Companheiro;
-import br.com.infnet.guildaaventureiro.repository.AventureiroRepositoryFake;
+import br.com.infnet.guildaaventureiro.repository.AventureiroRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.util.Comparator;
 @Service
 @RequiredArgsConstructor
 public class AventureiroService {
-    private final AventureiroRepositoryFake aventureiroRepository;
+    private final AventureiroRepository aventureiroRepository;
 
     public PagedResponse<Aventureiro> listar(
             @Valid AventureiroFiltroRequest filtro,
