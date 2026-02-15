@@ -3,6 +3,8 @@ package br.com.infnet.guildaaventureiro.advice;
 import br.com.infnet.guildaaventureiro.dto.ErrorResponse;
 import br.com.infnet.guildaaventureiro.enums.Classe;
 import br.com.infnet.guildaaventureiro.exception.EntidadeNaoLocalizadaException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import org.jspecify.annotations.Nullable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +45,7 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ErrorResponse> handle(HttpMessageNotReadableException ex) {
+    public ResponseEntity<ErrorResponse> handleErroJsonInvalidoException(HttpMessageNotReadableException ex) {
         String MESSAGE = "Requisição inválida";
         ResponseEntity.BodyBuilder response = ResponseEntity.status(HttpStatus.BAD_REQUEST);
 
@@ -59,5 +61,19 @@ public class ApiExceptionHandler {
                         Arrays.toString(Classe.values())
                 ))
         ));
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ErrorResponse> handleErroValidacaoException(ConstraintViolationException ex) {
+        List<String> erros = ex.getConstraintViolations()
+                .stream()
+                .map(ConstraintViolation::getMessageTemplate)
+                .toList();
+        return ResponseEntity
+                .badRequest()
+                .body(new ErrorResponse(
+                        "Requisição inválida",
+                        erros
+                ));
     }
 }
