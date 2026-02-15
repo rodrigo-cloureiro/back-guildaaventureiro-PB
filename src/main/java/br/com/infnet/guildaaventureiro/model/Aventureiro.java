@@ -51,4 +51,8 @@ public class Aventureiro {
     public void recrutar() {
         this.ativo = true;
     }
+
+    public void definirCompanheiro(Companheiro companheiro) {
+        this.companheiro = companheiro;
+    }
 }
