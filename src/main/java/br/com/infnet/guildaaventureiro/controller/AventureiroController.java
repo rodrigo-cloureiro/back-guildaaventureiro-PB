@@ -31,7 +31,7 @@ public class AventureiroController {
             @RequestHeader(value = "X-Page", required = false, defaultValue = "0")
             @Min(value = 0, message = "A página não pode ser negativa")
             int page,
-            @RequestHeader(value = "X-Size", required = false, defaultValue = "25")
+            @RequestHeader(value = "X-Size", required = false, defaultValue = "10")
             @Range(min = 1, max = 50, message = "O tamanho deve ser entre 1 e 50")
             int size
     ) {
