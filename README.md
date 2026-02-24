@@ -1,8 +1,3 @@
----
-title: TP1
-
----
-
 #  Avaliação 1 — API da Guilda de Aventureiros
 
 ![lgloria_a_vast_medieval_guild_registry_hall_stone_architectur_a6e19ca9-ec89-470a-a9e5-e954c1b700a9_3](https://hackmd.io/_uploads/rklkc0DP-x.png)
