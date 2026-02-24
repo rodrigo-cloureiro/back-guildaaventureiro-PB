@@ -57,9 +57,9 @@ public class AventureiroController {
     // Buscar Aventureiro por ID
     // =========================
     @GetMapping(value = "/{id}")
-    public ResponseEntity<AventureiroResponse> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<Aventureiro> buscarPorId(@PathVariable Long id) {
         Aventureiro aventureiro = aventureiroService.buscarPorId(id);
-        return ResponseEntity.ok(aventureiroMapper.toResponse(aventureiro));
+        return ResponseEntity.ok(aventureiro);
     }
 
     // =====================
@@ -106,7 +106,7 @@ public class AventureiroController {
     // ==================================
     // Definir Companheiro do Aventureiro
     // ==================================
-    @PostMapping(value = "/{id}/companheiro")
+    @PutMapping(value = "/{id}/companheiro")
     public ResponseEntity<Void> definirCompanheiro(
             @PathVariable Long id,
             @Valid @RequestBody Companheiro companheiro
